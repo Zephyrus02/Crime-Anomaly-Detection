@@ -1,0 +1,60 @@
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ conv2d_input (InputLayer)      [(None, 50, 50, 1)]  0           []                               
+                                                                                                  
+ conv2d (Conv2D)                (None, 50, 50, 64)   640         ['conv2d_input[0][0]']           
+                                                                                                  
+ leaky_re_lu (LeakyReLU)        (None, 50, 50, 64)   0           ['conv2d[0][0]']                 
+                                                                                                  
+ max_pooling2d (MaxPooling2D)   (None, 25, 25, 64)   0           ['leaky_re_lu[0][0]']            
+                                                                                                  
+ dropout (Dropout)              (None, 25, 25, 64)   0           ['max_pooling2d[0][0]']          
+                                                                                                  
+ conv2d_1 (Conv2D)              (None, 25, 25, 128)  73856       ['dropout[0][0]']                
+                                                                                                  
+ leaky_re_lu_1 (LeakyReLU)      (None, 25, 25, 128)  0           ['conv2d_1[0][0]']               
+                                                                                                  
+ max_pooling2d_1 (MaxPooling2D)  (None, 13, 13, 128)  0          ['leaky_re_lu_1[0][0]']          
+                                                                                                  
+ dropout_1 (Dropout)            (None, 13, 13, 128)  0           ['max_pooling2d_1[0][0]']        
+                                                                                                  
+ conv2d_2 (Conv2D)              (None, 13, 13, 256)  295168      ['dropout_1[0][0]']              
+                                                                                                  
+ leaky_re_lu_2 (LeakyReLU)      (None, 13, 13, 256)  0           ['conv2d_2[0][0]']               
+                                                                                                  
+ max_pooling2d_2 (MaxPooling2D)  (None, 7, 7, 256)   0           ['leaky_re_lu_2[0][0]']          
+                                                                                                  
+ lstm_input (InputLayer)        [(None, 2500, 1)]    0           []                               
+                                                                                                  
+ dropout_2 (Dropout)            (None, 7, 7, 256)    0           ['max_pooling2d_2[0][0]']        
+                                                                                                  
+ lstm (LSTM)                    (None, 2500, 8)      320         ['lstm_input[0][0]']             
+                                                                                                  
+ flatten (Flatten)              (None, 12544)        0           ['dropout_2[0][0]']              
+                                                                                                  
+ lstm_1 (LSTM)                  (None, 2500, 8)      544         ['lstm[0][0]']                   
+                                                                                                  
+ dense (Dense)                  (None, 256)          3211520     ['flatten[0][0]']                
+                                                                                                  
+ dense_1 (Dense)                (None, 2500, 4)      36          ['lstm_1[0][0]']                 
+                                                                                                  
+ leaky_re_lu_3 (LeakyReLU)      (None, 256)          0           ['dense[0][0]']                  
+                                                                                                  
+ dropout_4 (Dropout)            (None, 2500, 4)      0           ['dense_1[0][0]']                
+                                                                                                  
+ dropout_3 (Dropout)            (None, 256)          0           ['leaky_re_lu_3[0][0]']          
+                                                                                                  
+ flatten_1 (Flatten)            (None, 10000)        0           ['dropout_4[0][0]']              
+                                                                                                  
+ concatenate (Concatenate)      (None, 10256)        0           ['dropout_3[0][0]',              
+                                                                  'flatten_1[0][0]']              
+                                                                                                  
+ dense_2 (Dense)                (None, 7)            71799       ['concatenate[0][0]']            
+                                                                                                  
+==================================================================================================
+Total params: 3,653,883
+Trainable params: 3,653,883
+Non-trainable params: 0
+__________________________________________________________________________________________________
